@@ -1,0 +1,112 @@
+<html ng-app='tomatillo' ng-controller='timerCtrl'>
+  <head>
+    <title>{{formattedTime}}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script type='text/javascript' src='js/timer.js'></script>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Montserrat">
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' type='text/css' href='styles/styles.css'>
+  </head>
+
+  <body>
+    <div
+       id='menu-button'
+       ng-class="{'glyphicon glyphicon-menu-hamburger menu-button': !isOpen, 'glyphicon glyphicon-menu-hamburger menu-button open': isOpen}"
+       ng-init="isOpen = false"
+       ng-click="isOpen = !isOpen">
+    </div>
+
+    <div ng-class="{'settings': !customizing, 'settings customizing': customizing}">
+      <button
+        class='nav-btn'
+        ng-init='adjustingLength = false'
+        ng-click='adjustingLength = !adjustingLength'>Lengths
+      </button>
+        <div ng-class="{'setting':!adjustingLength,
+          'setting active-setting':adjustingLength}">
+          <div>
+            <span ng-show='!editingSessionLength'>Session: {{lengths['session']}} seconds</span>
+            <input
+              ng-show='editingSessionLength'
+              ng-model='lengths["session"]'>
+            </input>
+            <button
+              ng-init'editingSessionLength = false'
+              ng-click='editingSessionLength = !editingSessionLength'
+              ng-hide='editingSessionLength'>Edit
+            </button>
+            <button
+              ng-init'editingSessionLength = false'
+              ng-click='editingSessionLength = !editingSessionLength'
+              ng-show='editingSessionLength'>OK
+            </button>
+          </div>
+
+          <div>
+            <span ng-show='!editingShortBreakLength'>Short break: {{lengths['shortBreak']}} seconds</span>
+            <input
+              ng-show='editingShortBreakLength'
+              ng-model='lengths["shortBreak"]'>
+            </input>
+            <button
+              ng-init'editingShortBreakLength = false'
+              ng-click='editingShortBreakLength = !editingShortBreakLength'
+              ng-hide='editingShortBreakLength'>Edit
+            </button>
+            <button
+              ng-init'editingShortBreakLength = false'
+              ng-click='editingShortBreakLength = !editingShortBreakLength'
+              ng-show='editingShortBreakLength'>OK
+            </button>
+          </div>
+
+          <div>
+            <span ng-show='!editingLongBreak'>Long break: {{lengths['longBreak']}} seconds</span>
+            <input
+              ng-show='editingLongBreak'
+              ng-model='lengths["longBreak"]'>
+            </input>
+            <button
+              ng-init'editingLongBreak = false'
+              ng-click='editingLongBreak = !editingLongBreak'
+              ng-hide='editingLongBreak'>Edit
+            </button>
+            <button
+              ng-init'editingLongBreak = false'
+              ng-click='editingLongBreak = !editingLongBreak'
+              ng-show='editingLongBreak'>OK
+            </button>
+          </div>
+        </div>
+
+      <button class='nav-btn'>Notification</button>
+    </div>
+
+    <div ng-class="{'menu': !isOpen, 'menu open': isOpen}">
+      <button
+        class='nav-btn'
+        ng-init="customizing = false"
+        ng-click="customizing = !customizing">Settings
+      </button>
+
+      <button class='nav-btn'>Do Something Else</button>
+    </div>
+
+    <div id='timer'>
+      <img id='tomatillo' src='images/tomatillo.svg' />
+      <div id='interface'>
+          <div id='display'>{{formattedTime}}</div>
+
+        <div id='buttons'>
+          <button id='work' ng-click='work()'>Work</button>
+          <button id='short-break' ng-click='shortBreak()'>Short Break</button>
+          <button id='long-break' ng-click='longBreak()'>Long Break</button>
+          <button id='start' ng-click='start()' ng-hide='running' ng-disabled='time <= 0'>Start</button>
+          <button id='pause' ng-click='pause()' ng-show='running'>Pause</button>
+          <button id='reset' ng-click='reset()'>Reset</button>
+        <div>
+      </div>
+    </div>
+  </body>
+<html>
